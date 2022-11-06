@@ -1,0 +1,335 @@
+<script setup>
+import { RouterLink, RouterView } from 'vue-router';
+</script>
+<template>
+	<router-view v-slot="{ Component }">
+		<transition mode="out-in">
+			<component :is="Component"></component>
+		</transition>
+	</router-view>
+</template>
+<style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	--Cyan: #59c2cc;
+	--Light-Cyan: #6ef3ff;
+	--Dark-Blue: #0e2b47;
+}
+.v-enter-from {
+	transform: scale(.8);
+	opacity: 0;
+}
+.v-leave-to {
+	transform: scale(.8);
+
+	opacity: 0;
+}
+.v-enter-active,
+.v-leave-active {
+	transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+html,
+body {
+	min-height: 100vh;
+}
+
+body {
+	background: url('./assets/Animated-Shape.svg') no-repeat center;
+	background-size: cover;
+	font-family: 'Poppins', sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 1rem;
+	overflow: hidden;
+}
+a {
+	text-decoration: none;
+}
+h1 {
+	color: var(--Dark-Blue);
+}
+hr {
+	width: 100%;
+}
+section {
+	background-color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding: 1rem;
+	padding-left: 2.5rem;
+	border-radius: 1rem;
+	gap: 1rem;
+}
+input {
+	border: none;
+	background-color: var(--Dark-Blue);
+	color: var(--Light-Cyan);
+	padding: 0.5rem 1rem;
+	border-radius: 1rem;
+	font-family: inherit;
+}
+button {
+	border: none;
+	font-family: inherit;
+	font-size: inherit;
+	cursor: pointer;
+}
+label {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+@keyframes leave {
+	0% {
+		transform: translate(110%, -50%);
+		max-width: 1000px;
+		max-height: 1000px;
+		visibility: visible;
+		opacity: 1;
+	}
+	100% {
+		transform: none;
+		max-width: 0;
+		max-height: 0;
+		visibility: hidden;
+		opacity: 0;
+	}
+}
+@keyframes enter {
+	100% {
+		transform: translate(110%, -50%);
+		max-width: 1000px;
+		max-height: 1000px;
+		visibility: visible;
+		opacity: 1;
+	}
+}
+@keyframes leaveNew {
+	0% {
+		transform: translate(-135%, -50%);
+
+		max-width: 1000px;
+		max-height: 1000px;
+		visibility: visible;
+		opacity: 1;
+	}
+	100% {
+		transform: none;
+		max-width: 0;
+		max-height: 0;
+		visibility: hidden;
+		opacity: 0;
+	}
+}
+@keyframes enterNew {
+	100% {
+		transform: translate(-135%, -50%);
+		max-width: 1000px;
+		max-height: 1000px;
+		visibility: visible;
+		opacity: 1;
+	}
+}
+.newEntry {
+	border-radius: 1rem;
+	background-color: white;
+	position: absolute;
+	top: 50%;
+	transform: translate(-135%, -50%);
+	padding: 1rem;
+	visibility: hidden;
+	max-height: 0;
+	max-width: 0;
+	opacity: 0;
+}
+.modify {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	background-color: white;
+	padding: 1rem;
+	right: 0;
+	top: 50%;
+	border-radius: inherit;
+	gap: 1rem;
+	max-width: 0;
+	max-height: 0;
+	opacity: 0;
+	visibility: hidden;
+	overflow: hidden;
+
+	label {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+}
+.new-data__container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+}
+@keyframes saveLeave {
+	0% {
+		transform: translateY(-120%);
+		opacity: 1;
+	}
+	100% {
+		transform: translateY(0%);
+		opacity: 0;
+	}
+}
+@keyframes save {
+	100% {
+		transform: translateY(-120%);
+		opacity: 1;
+	}
+}
+.guardado {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgb(0, 212, 0);
+	padding: 0.5rem 1rem;
+	gap: 1rem;
+	border-radius: 100vmax;
+	position: absolute;
+	color: white;
+	animation: save 0.5s both;
+	top: 0;
+	opacity: 0;
+
+	z-index: -1;
+	& .fa-solid {
+		background-color: white;
+		padding: 0.5rem;
+		border-radius: 50%;
+		font-size: 1.5rem;
+		color: var(--Dark-Blue);
+	}
+}
+
+.link__button {
+	padding: 0.5rem 1rem;
+	background-color: var(--Cyan);
+	color: white;
+	border-radius: 1rem;
+	transition: background-color 0.3s, color 0.3s, text-shadow 0.3s;
+	text-align: center;
+
+	&:hover {
+		background-color: var(--Dark-Blue);
+		color: var(--Light-Cyan);
+		text-shadow: 0 0 5px currentColor;
+	}
+}
+.row__button {
+	padding: 0 1rem;
+	border-radius: 3px;
+	border: 1px solid var(--Light-Cyan);
+	cursor: pointer;
+}
+.btn-table-container {
+	display: flex;
+	flex-direction: column-reverse;
+	position: absolute;
+	left: -25px;
+	gap: 1rem;
+	& > * {
+		border: 1px solid var(--Cyan);
+		width: 52px;
+		height: 43px;
+	}
+}
+
+.data__table {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 1px;
+	border-radius: 1rem;
+	position: relative;
+}
+.table__row {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 1rem;
+	background-color: var(--Dark-Blue);
+	padding: 0.3rem 1rem;
+	justify-items: center;
+	border-radius: 0 0 1rem 1rem;
+
+	& > p {
+		text-align: center;
+		color: var(--Light-Cyan);
+	}
+}
+.table__labels {
+	width: 100%;
+	display: grid;
+	padding: 0 1rem;
+	grid-template-columns: repeat(4, 1fr);
+	background-color: var(--Cyan);
+	gap: 1rem;
+	border-radius: 1rem 1rem 0 0;
+	& > p {
+		text-align: center;
+		color: white;
+
+		&:nth-last-child(2) {
+			border-left: 2px solid white;
+		}
+	}
+}
+
+.main__section {
+	position: relative;
+}
+.lds-facebook {
+	display: inline-block;
+	position: relative;
+	width: 80px;
+	height: 80px;
+}
+.lds-facebook div {
+	display: inline-block;
+	position: absolute;
+	left: 8px;
+	width: 16px;
+	background: var(--Dark-Blue);
+	animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.lds-facebook div:nth-child(1) {
+	left: 8px;
+	animation-delay: -0.24s;
+}
+.lds-facebook div:nth-child(2) {
+	left: 32px;
+	animation-delay: -0.12s;
+}
+.lds-facebook div:nth-child(3) {
+	left: 56px;
+	animation-delay: 0;
+}
+@keyframes lds-facebook {
+	0% {
+		top: 8px;
+		height: 64px;
+	}
+	50%,
+	100% {
+		top: 24px;
+		height: 32px;
+	}
+}
+</style>
