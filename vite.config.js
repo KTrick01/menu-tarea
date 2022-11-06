@@ -5,7 +5,7 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/Menu-crud-tarea/',
+  base: '/menu-tarea/',
   plugins: [vue()],
   resolve: {
     alias: {
